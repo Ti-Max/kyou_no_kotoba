@@ -1,20 +1,9 @@
 defmodule KyouNoKotoba do
-  @moduledoc """
-  Documentation for `KyouNoKotoba`.
-  """
+  use Application
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> KyouNoKotoba.hello()
-      :world
-
-  """
-  def hello do
-    IO.inspect("Hello, world!")
-    dbg("Hello, world!")
-    :world
+  def start(_type, _args) do
+    IO.puts("Starting KyouNoKotoba")
+    children = [ExampleConsumer]
+    Supervisor.start_link(children, strategy: :one_for_one)
   end
 end
