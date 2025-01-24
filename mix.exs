@@ -22,6 +22,7 @@ defmodule KyouNoKotoba.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:exsync, "~> 0.4", only: :dev},
       {:nostrum, "~> 0.10"}
     ]
   end
