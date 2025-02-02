@@ -6,16 +6,29 @@
   };
 
   outputs = { self, nixpkgs }:
-  let
-    pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-  in
-  {
-    devShells.aarch64-darwin.default = pkgs.mkShell {
-      buildInputs = with pkgs; [elixir_1_18];
-      shellHook = ''
-        echo "It's time for 今日の言葉!"
-      '';
-    };
+    let
+      aarch64-darwin_pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+      aarch64DarwinBuildInputs = with aarch64-darwin_pkgs; [ elixir_1_18 ];
+      aarch64-linux_pkgs = nixpkgs.legacyPackages.aarch64-linux;
+      aarch64LinuxBuildInputs = with aarch64-linux_pkgs; [ elixir_1_18 inotify-tools ];
+      x86_64-linux_pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      x86_64LinuxBuildInputs = with x86_64-linux_pkgs; [ elixir_1_18 inotify-tools ];
 
-  };
+      buildShell = { pkgs, buildInputs }:
+      pkgs.mkShell {
+        buildInputs = buildInputs;
+        shellHook = ''
+          echo "It's time for 今日の言葉!"
+        '';
+      };
+    in
+    {
+      devShells.aarch64-darwin.default = buildShell {pkgs=aarch64-darwin_pkgs; buildInputs=aarch64DarwinBuildInputs;};
+      devShells.aarch64-linux.default = buildShell { pkgs=aarch64-linux_pkgs; buildInputs=aarch64LinuxBuildInputs;};
+      devShells.x86_64-linux.default = buildShell { pkgs=-x86_64-linux_pkgs; buildInputs=x86_64LinuxBuildInputs;};
+
+      formatter.aarch64-darwin = aarch64-darwin_pkgs.nixpkgs-fmt;
+      formatter.aarch64-linux = aarch64-linux_pkgs.nixpkgs-fmt;
+    }
+  ;
 }
