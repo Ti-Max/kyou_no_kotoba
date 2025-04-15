@@ -1,0 +1,15 @@
+# fly.toml app configuration file generated for kyou-no-kotoba-xipa0g on 2025-04-15T16:56:24Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'kyou-no-kotoba-xipa0g'
+primary_region = 'lhr'
+
+[build]
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256
