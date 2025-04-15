@@ -12,16 +12,21 @@ defmodule DiscordConsumer do
 
   @new_word_form "new_word_form"
 
-  @impl true
-  def handle_event({:GUILD_AVAILABLE, %{id: guild_id} = msg, _}) do
-    dbg(msg)
+  # @impl true
+  # def handle_event({ev, msg, _}) do
+  #   dbg(ev)
+  #   dbg(msg)
+  # end
 
+  @impl true
+  def handle_event({:GUILD_AVAILABLE, %{id: guild_id}, _}) do
     command = %{
       name: "new",
       description: "Create new 今日の言葉"
     }
 
     {:ok, _} = Api.create_guild_application_command(guild_id, command)
+    Logger.info("Adding commands to #{guild_id} guild")
   end
 
   def handle_event({:INTERACTION_CREATE, %{type: @application_command} = interaction, _}) do
@@ -110,8 +115,6 @@ defmodule DiscordConsumer do
         {:INTERACTION_CREATE,
          %{type: @modal_submit, data: %{custom_id: @new_word_form} = data} = interaction, _}
       ) do
-    dbg(data)
-
     response = %{
       type: Constants.InteractionCallbackType.channel_message_with_source(),
       data: %{content: compose_response(data)}
