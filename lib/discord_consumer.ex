@@ -22,7 +22,7 @@ defmodule DiscordConsumer do
   def handle_event({:GUILD_AVAILABLE, %{id: guild_id}, _}) do
     command = %{
       name: "new",
-      description: "Create new 今日の言葉"
+      description: "Create a new 今日の言葉"
     }
 
     {:ok, _} = Api.create_guild_application_command(guild_id, command)
@@ -33,18 +33,18 @@ defmodule DiscordConsumer do
     response = %{
       type: Constants.InteractionCallbackType.modal(),
       data: %{
-        title: "Create new 今日の言葉",
+        title: "Create a new 今日の言葉",
         custom_id: @new_word_form,
         components: [
           Component.ActionRow.action_row(
             components: [
               Component.TextInput.text_input(
-                "言葉 / Word",
+                "Example: 言葉 / Word",
                 "word",
                 style: Constants.TextInputStyle.short(),
                 min_length: 1,
                 max_length: 30,
-                placeholder: "言葉",
+                placeholder: "E.g. 言葉",
                 required: true
               )
             ]
@@ -57,7 +57,7 @@ defmodule DiscordConsumer do
                 style: Constants.TextInputStyle.short(),
                 min_length: 1,
                 max_length: 100,
-                placeholder: "word, language",
+                placeholder: "E.g. word, language",
                 required: true
               )
             ]
@@ -70,7 +70,7 @@ defmodule DiscordConsumer do
                 style: Constants.TextInputStyle.short(),
                 min_length: 1,
                 max_length: 50,
-                placeholder: "ことば",
+                placeholder: "E.g. ことば",
                 required: false
               )
             ]
@@ -83,7 +83,7 @@ defmodule DiscordConsumer do
                 style: Constants.TextInputStyle.paragraph(),
                 min_length: 1,
                 max_length: 200,
-                placeholder: "それが今日の言葉です",
+                placeholder: "E.g. それが今日の言葉です",
                 required: false
               )
             ]
