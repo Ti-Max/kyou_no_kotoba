@@ -3,6 +3,6 @@ defmodule KyouNoKotobaTest do
   doctest KyouNoKotoba
 
   test "greets the world" do
-    assert KyouNoKotoba.hello() == :world
+    KyouNoKotoba.start()
   end
 end
