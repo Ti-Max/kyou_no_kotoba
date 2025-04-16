@@ -15,6 +15,11 @@ jobs:
     name: Build and test
     runs-on: ubuntu-24.04
 
+    env:
+      MIX_ENV: test
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up Elixir
