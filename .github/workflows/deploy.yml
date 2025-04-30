@@ -42,12 +42,12 @@ jobs:
       run: mix test
 
   deploy:
+    needs: build
+    name: Deploy app
+    runs-on: ubuntu-24.04
+    concurrency: deploy-group    # optional: ensure only one action runs at a time
 
-      name: Deploy
-      runs-on: ubuntu-24-04
-      environment: production
-
-      env:
+    env:
         AWS_REGION: eu-north-1
         ECR_REPOSITORY: kyou_no_kotoba_repo
         ECS_SERVICE: kyou_no_kotoba_service
