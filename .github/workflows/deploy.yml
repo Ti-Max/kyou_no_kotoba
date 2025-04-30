@@ -42,10 +42,11 @@ jobs:
       run: mix test
 
   deploy:
+
     needs: build
     name: Deploy app
     runs-on: ubuntu-24.04
-    concurrency: deploy-group    # optional: ensure only one action runs at a time
+    concurrency: deploy-group
 
     env:
         AWS_REGION: eu-north-1
