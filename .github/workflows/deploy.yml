@@ -42,19 +42,18 @@ jobs:
       run: mix test
 
   deploy:
-
     needs: build
     name: Deploy app
     runs-on: ubuntu-24.04
-    concurrency: deploy-group
+    concurrency: deploy-group    # optional: ensure only one action runs at a time
 
     env:
-        AWS_REGION: eu-north-1
-        ECR_REPOSITORY: kyou_no_kotoba_repo
-        ECS_SERVICE: kyou_no_kotoba_service
-        ECS_CLUSTER: KyouNoKotobaCluster
-        ECS_TASK_DEFINITION: aws/task-definition.json
-        CONTAINER_NAME: KyouNoKotoba_container
+      AWS_REGION: eu-north-1
+      ECR_REPOSITORY: kyou_no_kotoba_repo
+      ECS_SERVICE: kyou_no_kotoba_service
+      ECS_CLUSTER: KyouNoKotobaCluster
+      ECS_TASK_DEFINITION: aws/task-definition.json
+      CONTAINER_NAME: KyouNoKotoba_container
 
       steps:
       - uses: actions/checkout@v4
