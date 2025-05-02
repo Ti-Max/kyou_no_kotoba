@@ -1,5 +1,8 @@
 {
-    "family": "kyou_no_kotoba_task_def",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "family": "kyou_no_kotoba",
     "containerDefinitions": [
         {
             "name": "KyouNoKotoba_container",
@@ -15,21 +18,16 @@
                 }
             ],
             "essential": true,
-            "environment": [],
-            "environmentFiles": [],
-            "mountPoints": [],
-            "volumesFrom": [],
             "secrets": [
                 {
                     "name": "DISCORD_TOKEN",
                     "valueFrom": "arn:aws:ssm:eu-north-1:323961054089:parameter/DISCORD_TOKEN"
                 }
             ],
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/kyou_no_kotoba_task_def",
+                    "awslogs-group": "/ecs/kyou_no_kotoba",
                     "mode": "non-blocking",
                     "awslogs-create-group": "true",
                     "max-buffer-size": "25m",
@@ -41,19 +39,13 @@
             "systemControls": []
         }
     ],
-    "taskRoleArn": "arn:aws:iam::323961054089:role/ecsTaskExecutionRole",
-    "executionRoleArn": "arn:aws:iam::323961054089:role/ecsTaskExecutionRole",
-    "networkMode": "awsvpc",
     "volumes": [],
-    "placementConstraints": [],
-    "requiresCompatibilities": [
-        "FARGATE"
-    ],
+    "networkMode": "awsvpc",
     "cpu": "256",
     "memory": "512",
     "runtimePlatform": {
-        "cpuArchitecture": "ARM64",
+        "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "enableFaultInjection": false
+    "executionRoleArn": "arn:aws:iam::323961054089:role/ecsTaskExecutionRole"
 }
