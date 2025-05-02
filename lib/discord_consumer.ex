@@ -22,7 +22,7 @@ defmodule DiscordConsumer do
   def handle_event({:GUILD_AVAILABLE, %{id: guild_id}, _}) do
     command = %{
       name: "new",
-      description: "Create a new 今日の言葉"
+      description: "Create a new 今日の言葉 (v1.1)"
     }
 
     {:ok, _} = Api.create_guild_application_command(guild_id, command)
